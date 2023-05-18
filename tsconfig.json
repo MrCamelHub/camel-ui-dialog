@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@components": ["./src/components"],
+      "@components/*": ["./src/components/*"],
+      "@context": ["./src/context"],
+      "@context/*": ["./src/context/*"],
+      "@provider": ["./src/provider"],
+      "@provider/*": ["./src/provider/*"],
+      "@types": ["./src/types"],
+      "@types/*": ["./src/types/*"],
+      "@utils": ["./src/utils"],
+      "@utils/*": ["./src/utils/*"]
+    },
+    "target": "es5",
+    "module": "esnext",
+    "lib": ["dom", "esnext"],
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
+    "strict": true,
+    "declaration": true,
+    "declarationDir": ".",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "jsxImportSource": "@emotion/react"
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
