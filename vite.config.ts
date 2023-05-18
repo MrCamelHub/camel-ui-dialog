@@ -4,7 +4,11 @@ import react from '@vitejs/plugin-react-swc';
 
 import pkg from './package.json';
 
-export default defineConfig(() => {
+export default defineConfig(({ command }) => {
+  if (command === 'serve') {
+    return {};
+  }
+
   return {
     build: {
       lib: {
