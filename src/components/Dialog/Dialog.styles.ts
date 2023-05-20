@@ -60,11 +60,6 @@ export const StyledDialog = styled.div<
   ${({ disablePadding }): CSSObject => (disablePadding ? { padding: 0 } : {})}
 
   background-color: ${({ theme: { palette } }) => palette.common.bg01};
-  box-shadow: ${({
-    theme: {
-      box: { shadow }
-    }
-  }) => shadow.modal};
 
   ${({
     fullScreen,
