@@ -93,6 +93,8 @@ function DialogRenderProvider() {
     if (dialogStates.length) {
       const dialogRoot = document.getElementById('dialog-root') as HTMLDivElement;
 
+      document.body.style.overflow = 'hidden';
+
       if (!dialogRoot) {
         const newDialogRoot = document.createElement('div');
         newDialogRoot.id = 'dialog-root';
@@ -115,6 +117,8 @@ function DialogRenderProvider() {
         setIsMounted(true);
       }
     } else {
+      document.body.removeAttribute('style');
+
       dialogRootPortalRef.current?.remove();
       dialogRootPortalRef.current = null;
       setIsMounted(false);
@@ -151,6 +155,7 @@ function DialogRenderProvider() {
           fullScreen,
           disableFullScreenSwipeable,
           onClose,
+          customStyle,
           ...props
         }
       }) => (
@@ -164,7 +169,6 @@ function DialogRenderProvider() {
           onClick={onClose}
         >
           <StyledDialog
-            {...props}
             ref={dialogRef}
             dialogOpen={open}
             dialogClose={close}
@@ -177,6 +181,8 @@ function DialogRenderProvider() {
             onTouchStart={handleTouchStart(disableFullScreenSwipeable, fullScreen)}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleEndSwipeable(transitionDuration, onClose)}
+            {...props}
+            css={customStyle}
             role="dialog"
           >
             {children}

@@ -51,6 +51,24 @@ const Dialog = forwardRef<HTMLDivElement, DialogComponentProps>(function Dialog(
   }, [open, id, setDialogStates, transitionDuration, children, props, ref, dialogStates]);
 
   useEffect(() => {
+    const hasCurrentOpenDialog = dialogStates.some(
+      ({ id: dialogId, open: openDialog }) => dialogId === id && openDialog
+    );
+
+    if (hasCurrentOpenDialog) {
+      setDialogStates((prevDialogStates) =>
+        prevDialogStates.map((prevDialogState) => ({
+          ...prevDialogState,
+          props: {
+            ...prevDialogState.props,
+            children: prevDialogState.id === id ? children : prevDialogState.props.children
+          }
+        }))
+      );
+    }
+  }, [dialogStates, id, children, setDialogStates]);
+
+  useEffect(() => {
     if (!open && id && initializedRef.current) {
       initializedRef.current = false;
       setDialogStates((prevDialogStates) =>

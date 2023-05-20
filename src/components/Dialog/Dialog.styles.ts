@@ -57,8 +57,6 @@ export const StyledDialog = styled.div<
   padding: 32px 20px 20px;
   text-align: center;
 
-  ${({ disablePadding }): CSSObject => (disablePadding ? { padding: 0 } : {})}
-
   background-color: ${({ theme: { palette } }) => palette.common.bg01};
 
   ${({
@@ -73,8 +71,12 @@ export const StyledDialog = styled.div<
         }
       : {
           width: '100%',
-          height: '100%'
+          height: '100%',
+          padding: 20,
+          textAlign: 'inherit'
         }};
+
+  ${({ disablePadding }): CSSObject => (disablePadding ? { padding: 0 } : {})}
 
   opacity: 0;
   visibility: hidden;
