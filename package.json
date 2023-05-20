@@ -18,7 +18,8 @@
     "prettier": "prettier --write --config ./.prettierrc \"**/*.{js,ts,tsx}\"",
     "conventions": "pnpm prettier && eslint --fix \"**/*.{js,ts,tsx}\"",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "chromatic": "npx chromatic --project-token=chpt_3969254c1514e08"
   },
   "devDependencies": {
     "@emotion/react": "^11.11.0",
