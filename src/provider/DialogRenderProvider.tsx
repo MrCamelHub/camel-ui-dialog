@@ -119,8 +119,15 @@ function DialogRenderProvider() {
     } else {
       document.body.removeAttribute('style');
 
-      dialogRootPortalRef.current?.remove();
-      dialogRootPortalRef.current = null;
+      if (dialogRootPortalRef.current) {
+        dialogRootPortalRef.current?.remove();
+        dialogRootPortalRef.current = null;
+      } else {
+        const dialogRoot = document.getElementById('dialog-root') as HTMLDivElement;
+
+        if (dialogRoot) dialogRoot.remove();
+      }
+
       setIsMounted(false);
     }
   }, [dialogStates]);

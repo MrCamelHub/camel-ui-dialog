@@ -13,9 +13,6 @@ devDependencies:
   '@storybook/addon-essentials':
     specifier: ^7.0.12
     version: 7.0.12(react-dom@18.2.0)(react@18.2.0)
-  '@storybook/blocks':
-    specifier: ^7.0.12
-    version: 7.0.12(react-dom@18.2.0)(react@18.2.0)
   '@storybook/react':
     specifier: ^7.0.12
     version: 7.0.12(react-dom@18.2.0)(react@18.2.0)(typescript@4.9.5)

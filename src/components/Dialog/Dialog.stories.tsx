@@ -33,7 +33,8 @@ function DialogWithHooks(args: DialogProps & RefAttributes<HTMLDivElement>) {
 
 function NestedDialogWithHooks(args: DialogProps & RefAttributes<HTMLDivElement>) {
   const [open, setOpen] = useState(false);
-  const [openNextDialog, setOpenNextDialog] = useState(false);
+  const [openSecondDialog, setOpenSecondDialog] = useState(false);
+  const [openThirdDialog, setOpenThirdDialog] = useState(false);
 
   return (
     <>
@@ -53,14 +54,33 @@ function NestedDialogWithHooks(args: DialogProps & RefAttributes<HTMLDivElement>
           brandColor="primary"
           onClick={() => {
             setOpen(false);
-            setOpenNextDialog(true);
+            setOpenSecondDialog(true);
           }}
         >
-          Open Next Dialog
+          Open Second Dialog
         </Button>
       </Dialog>
-      <Dialog {...args} open={openNextDialog} onClose={() => setOpenNextDialog(false)}>
-        Next Camel Dialog
+      <Dialog {...args} open={openSecondDialog} onClose={() => setOpenSecondDialog(false)}>
+        <Typography
+          customStyle={{
+            marginBottom: 8
+          }}
+        >
+          Camel Dialog
+        </Typography>
+        <Button
+          variant="solid"
+          brandColor="primary"
+          onClick={() => {
+            setOpenSecondDialog(false);
+            setOpenThirdDialog(true);
+          }}
+        >
+          Open Third Dialog
+        </Button>
+      </Dialog>
+      <Dialog {...args} open={openThirdDialog} onClose={() => setOpenThirdDialog(false)}>
+        <Typography>Camel Dialog</Typography>
       </Dialog>
     </>
   );

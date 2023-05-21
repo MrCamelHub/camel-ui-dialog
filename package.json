@@ -26,7 +26,6 @@
     "@emotion/styled": "^11.11.0",
     "@mrcamelhub/camel-ui": "^0.1.69",
     "@storybook/addon-essentials": "^7.0.12",
-    "@storybook/blocks": "^7.0.12",
     "@storybook/react": "^7.0.12",
     "@storybook/react-vite": "^7.0.12",
     "@types/node": "^20.2.0",
