@@ -17,7 +17,7 @@ export const Wrapper = styled.div<
   ${({ fullScreen }): CSSObject =>
     !fullScreen
       ? {
-          padding: 20
+          padding: '20px 32px'
         }
       : {}};
 
@@ -53,7 +53,7 @@ export const StyledDialog = styled.div<
     dialogClose: boolean;
   }
 >`
-  width: calc(100% - 64px);
+  width: 100%;
   padding: 32px 20px 20px;
   text-align: center;
 
