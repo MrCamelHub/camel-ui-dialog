@@ -13,7 +13,7 @@ const Dialog = forwardRef<HTMLDivElement, DialogComponentProps>(function Dialog(
   const [id, setId] = useState(0);
 
   const initializedRef = useRef(false);
-  const updatedChildrenRef = useRef(false);
+  const updatedChildrenRef = useRef(true);
 
   useEffect(() => {
     if (open && !id) setId(createUniqueId('dialog'));
@@ -52,13 +52,17 @@ const Dialog = forwardRef<HTMLDivElement, DialogComponentProps>(function Dialog(
   }, [open, id, setDialogStates, transitionDuration, children, props, ref, dialogStates]);
 
   useEffect(() => {
+    if (initializedRef.current) updatedChildrenRef.current = false;
+  }, [children]);
+
+  useEffect(() => {
     if (updatedChildrenRef.current) return;
 
     const hasCurrentOpenDialog = dialogStates.some(
       ({ id: dialogId, open: openDialog }) => dialogId === id && openDialog
     );
 
-    if (hasCurrentOpenDialog && !updatedChildrenRef.current) {
+    if (hasCurrentOpenDialog && initializedRef.current && !updatedChildrenRef.current) {
       updatedChildrenRef.current = true;
       setDialogStates((prevDialogStates) =>
         prevDialogStates.map((prevDialogState) => ({
@@ -71,10 +75,6 @@ const Dialog = forwardRef<HTMLDivElement, DialogComponentProps>(function Dialog(
       );
     }
   }, [dialogStates, id, children, setDialogStates]);
-
-  useEffect(() => {
-    updatedChildrenRef.current = false;
-  }, [children]);
 
   useEffect(() => {
     if (!open && id && initializedRef.current) {
