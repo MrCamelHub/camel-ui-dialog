@@ -8,8 +8,8 @@ devDependencies:
     specifier: ^11.11.0
     version: 11.11.0(@emotion/react@11.11.0)(@types/react@18.2.6)(react@18.2.0)
   '@mrcamelhub/camel-ui':
-    specifier: ^0.1.69
-    version: 0.1.69(@emotion/react@11.11.0)(@emotion/styled@11.11.0)(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^0.1.72
+    version: 0.1.72(@emotion/react@11.11.0)(@emotion/styled@11.11.0)(react-dom@18.2.0)(react@18.2.0)
   '@storybook/addon-essentials':
     specifier: ^7.0.12
     version: 7.0.12(react-dom@18.2.0)(react@18.2.0)
@@ -1955,8 +1955,8 @@ packages:
     resolution: {integrity: sha512-9b8mPpKrfeGRuhFH5iO1iwCLeIIsV6+H1sRfxbkoGXIyQE2BTsPd9zqSqQJ+pv5sJ/hT5M1zvOFL02MnEezFug==}
     dev: true
 
-  /@mrcamelhub/camel-ui@0.1.69(@emotion/react@11.11.0)(@emotion/styled@11.11.0)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-aiSBKgF7vLlauexInwaHOY2LfryKslMVfhitG2MhZOAbro13osSQEVPNMfrLQpscQDq0NA5F8cmXWPy0pZjH3w==}
+  /@mrcamelhub/camel-ui@0.1.72(@emotion/react@11.11.0)(@emotion/styled@11.11.0)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-VdztYa53nO0/VkjVnSqwdndvqYHWjs37wGfJacccsWNIgu5QfS7q+CI1Md8hCPjWsZ6truhe1kwaSXqHhP/SWw==}
     peerDependencies:
       '@emotion/react': ^11.11.0
       '@emotion/styled': ^11.11.0
