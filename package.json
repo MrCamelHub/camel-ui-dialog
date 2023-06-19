@@ -1,6 +1,6 @@
 {
   "name": "@mrcamelhub/camel-ui-dialog",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Camel UI React Dialog Component",
   "main": "./dist/index.js",
   "module": "./dist/index.es.js",
