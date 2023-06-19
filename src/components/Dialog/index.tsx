@@ -1,23 +1,27 @@
 import { forwardRef, useContext, useEffect, useRef, useState } from 'react';
 
+import { createPortal } from 'react-dom';
 import createUniqueId from '@utils/createUniqId';
-import dialogStatesContext from '@context/DialogStatesContext';
+import DialogStatesContext from '@context/DialogStatesContext';
+import DialogContent from '@components/DialogContent';
 
-import type { DialogComponentProps } from '@types';
+import type { DialogComponentProps, DialogState } from '@types';
 
 const Dialog = forwardRef<HTMLDivElement, DialogComponentProps>(function Dialog(
-  { children, open, transitionDuration = 225, ...props },
+  { children, open, transitionDuration = 225, renderScope = 'provider', ...props },
   ref
 ) {
-  const [dialogStates, setDialogStates] = useContext(dialogStatesContext);
-  const [id, setId] = useState(0);
+  const [dialogStates, setDialogStates] = useContext(DialogStatesContext);
+
+  const [id] = useState(createUniqueId('dialog'));
+  const [dialogState, setDialogState] = useState<DialogState | undefined>();
+  const [dialogRootPortal, setDialogRootPortal] = useState<HTMLDivElement | null>(null);
 
   const initializedRef = useRef(false);
-  const updatedChildrenRef = useRef(true);
 
   useEffect(() => {
-    if (open && !id) setId(createUniqueId('dialog'));
-  }, [open, id]);
+    setDialogRootPortal(document.getElementById('dialog-root') as HTMLDivElement);
+  }, [dialogState]);
 
   useEffect(() => {
     const hasCurrentOpenDialog = dialogStates.some(({ open: openDialog }) => openDialog);
@@ -44,37 +48,35 @@ const Dialog = forwardRef<HTMLDivElement, DialogComponentProps>(function Dialog(
             children,
             open,
             transitionDuration,
+            renderScope,
             ...props
           }
         })
       );
     }
-  }, [open, id, setDialogStates, transitionDuration, children, props, ref, dialogStates]);
+  }, [
+    open,
+    id,
+    setDialogStates,
+    transitionDuration,
+    renderScope,
+    children,
+    props,
+    ref,
+    dialogStates
+  ]);
 
   useEffect(() => {
-    if (initializedRef.current) updatedChildrenRef.current = false;
-  }, [children]);
-
-  useEffect(() => {
-    if (updatedChildrenRef.current) return;
-
-    const hasCurrentOpenDialog = dialogStates.some(
-      ({ id: dialogId, open: openDialog }) => dialogId === id && openDialog
+    setDialogStates((prevDialogStates) =>
+      prevDialogStates.map((prevDialogState) => ({
+        ...prevDialogState,
+        props: {
+          ...prevDialogState.props,
+          children: prevDialogState.id === id ? children : prevDialogState.props.children
+        }
+      }))
     );
-
-    if (hasCurrentOpenDialog && initializedRef.current && !updatedChildrenRef.current) {
-      updatedChildrenRef.current = true;
-      setDialogStates((prevDialogStates) =>
-        prevDialogStates.map((prevDialogState) => ({
-          ...prevDialogState,
-          props: {
-            ...prevDialogState.props,
-            children: prevDialogState.id === id ? children : prevDialogState.props.children
-          }
-        }))
-      );
-    }
-  }, [dialogStates, id, children, setDialogStates]);
+  }, [setDialogStates, id, children]);
 
   useEffect(() => {
     if (!open && id && initializedRef.current) {
@@ -99,7 +101,15 @@ const Dialog = forwardRef<HTMLDivElement, DialogComponentProps>(function Dialog(
     };
   }, [setDialogStates]);
 
-  return null;
+  useEffect(() => {
+    if (renderScope === 'component') {
+      setDialogState(dialogStates.find(({ id: dialogStateId }) => dialogStateId === id));
+    }
+  }, [renderScope, id, dialogStates]);
+
+  if (renderScope !== 'component' || !dialogState || !dialogRootPortal) return null;
+
+  return createPortal(<DialogContent {...dialogState}>{children}</DialogContent>, dialogRootPortal);
 });
 
 export default Dialog;

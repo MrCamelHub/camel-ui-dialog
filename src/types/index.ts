@@ -7,6 +7,7 @@ export interface DialogProps {
   open?: boolean;
   transitionDuration?: number;
   fullScreen?: boolean;
+  renderScope?: 'provider' | 'component';
   disablePadding?: boolean;
   disableFullScreenSwipeable?: boolean;
   onClose?: () => void;
