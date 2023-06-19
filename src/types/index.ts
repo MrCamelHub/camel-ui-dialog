@@ -17,7 +17,7 @@ export type DialogComponentProps = DialogProps &
   GenericComponentProps<Omit<HTMLAttributes<HTMLDivElement>, 'onClick'>>;
 
 export interface DialogState {
-  id: number;
+  id: number | string;
   open: boolean;
   close: boolean;
   openTimer: ReturnType<typeof setTimeout>;

@@ -1,7 +1,6 @@
-import { forwardRef, useContext, useEffect, useRef, useState } from 'react';
+import { forwardRef, useContext, useEffect, useId, useRef, useState } from 'react';
 
 import { createPortal } from 'react-dom';
-import createUniqueId from '@utils/createUniqId';
 import DialogStatesContext from '@context/DialogStatesContext';
 import DialogContent from '@components/DialogContent';
 
@@ -11,9 +10,10 @@ const Dialog = forwardRef<HTMLDivElement, DialogComponentProps>(function Dialog(
   { children, open, transitionDuration = 225, renderScope = 'provider', ...props },
   ref
 ) {
+  const id = useId();
+
   const [dialogStates, setDialogStates] = useContext(DialogStatesContext);
 
-  const [id] = useState(createUniqueId('dialog'));
   const [isMounted, setIsMounted] = useState(false);
   const [dialogState, setDialogState] = useState<DialogState | undefined>();
   const [dialogRootPortal, setDialogRootPortal] = useState<HTMLDivElement | null>(null);
